@@ -75,12 +75,21 @@ async function get_Transaction(req, res) {
 }
 
 
+//delete http://localhost:8080/api/transactions
+async function delete_Transaction(req, res) {
 
+    if (!req.body) res.status(400).json({ message: `Request not found` });
+    await model.Transaction.deleteOne(req.body, function (err) {
+        if(!err)res.json("Record deleted successfully")
+    }).clone().catch(function(err){res.json("Error while deleting the transaction record ")})
+
+}
 
 module.exports = {
     create_Categories, 
     get_categories,
     create_Transaction,
-    get_Transaction
+    get_Transaction,
+    delete_Transaction
 
 }
